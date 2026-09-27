@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VTX | منصة السكربتات والأكواد الرسمية</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Cairo & Orbitron -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            vtxBg: '#09070F',
+            vtxSurface: '#13101E',
+            vtxCard: '#1A152B',
+            vtxBorder: '#382759',
+            vtxBorderGlow: '#8B5CF6',
+            vtxPrimary: '#A855F7',
+            vtxPrimaryLight: '#C084FC',
+            vtxGreen: '#10B981',
+            vtxGreenHover: '#059669',
+          },
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+            orbitron: ['Orbitron', 'sans-serif'],
+            mono: ['Courier New', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #09070F;
+      color: #F8FAFC;
+      font-family: 'Cairo', sans-serif;
+    }
+    .glow-purple {
+      box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+    }
+    .glow-green {
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #382759;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-vtxBg text-slate-100">
+
+  <!-- Header / Navbar -->
+  <header class="sticky top-0 z-40 bg-vtxSurface/90 backdrop-blur-md border-b border-vtxBorder">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-700 to-fuchsia-600 flex items-center justify-center border border-purple-400 font-orbitron font-black text-white text-base shadow-lg shadow-purple-900/40">
+          VTX
+        </div>
+        <div>
+          <h1 class="text-lg font-black tracking-wider text-white font-orbitron">VTX HUB</h1>
+          <p class="text-[11px] text-vtxPrimaryLight font-medium -mt-1">منصة السكربتات والأكواد</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex items-center gap-2">
+        <button onclick="switchTab('scripts')" id="nav-scripts" class="px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 transition-all bg-vtxPrimary text-white shadow-md shadow-purple-900/40">
+          <i data-lucide="terminal" class="w-4 h-4"></i>
+          <span>السكربتات</span>
+        </button>
+        <button onclick="switchTab('codes')" id="nav-codes" class="px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-vtxCard">
+          <i data-lucide="key" class="w-4 h-4"></i>
+          <span>الأكواد</span>
+        </button>
+        <button onclick="switchTab('admin')" id="nav-admin" class="px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-vtxCard">
+          <i data-lucide="shield" class="w-4 h-4"></i>
+          <span>الإدارة</span>
+        </button>
+      </nav>
+
+      <!-- Status indicator -->
+      <div class="hidden sm:flex items-center gap-2 bg-vtxCard px-3 py-1.5 rounded-full border border-vtxBorder text-xs text-vtxGreen font-bold">
+        <span class="w-2 h-2 rounded-full bg-vtxGreen animate-pulse"></span>
+        ONLINE
+      </div>
+    </div>
+  </header>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 transform transition-all duration-300 translate-y-24 opacity-0 pointer-events-none">
+    <div class="bg-vtxCard border border-vtxPrimary text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-sm font-bold glow-purple">
+      <i data-lucide="check-circle" class="w-5 h-5 text-vtxGreen"></i>
+      <span id="toast-text">تم النسخ بنجاح!</span>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="max-w-6xl mx-auto px-4 py-6 flex-1 w-full">
+
+    <!-- ============================================== -->
+    <!-- TAB 1: السكربتات (Scripts Catalog) -->
+    <!-- ============================================== -->
+    <section id="tab-scripts" class="space-y-6">
+      <!-- Hero Banner -->
+      <div class="relative rounded-2xl overflow-hidden border border-vtxBorder bg-gradient-to-r from-purple-950/60 via-slate-900 to-black p-6 md:p-8 flex flex-col justify-center shadow-xl">
+        <div class="relative z-10 max-w-xl space-y-2">
+          <div class="inline-flex items-center gap-2 bg-vtxPrimary/20 text-vtxPrimaryLight px-3 py-1 rounded-md text-xs font-bold border border-vtxPrimary/30">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> VTX EXCLUSIVE RELEASES
+          </div>
+          <h2 class="text-2xl md:text-3xl font-black text-white">أقوى سكربتات VTX التلقائية والحصرية</h2>
+          <p class="text-sm text-slate-300">اختر السكربت واضغط على زر <span class="text-vtxGreen font-bold">«أخذ»</span> الأخضر ليتم نسخه إلى الحافظة واستخدامه فوراً في أداتك المفضلة!</p>
+        </div>
+        <div class="absolute -left-10 -bottom-10 w-64 h-64 bg-vtxPrimary/10 rounded-full blur-3xl pointer-events-none"></div>
+      </div>
+
+      <!-- Search & Category Filters -->
+      <div class="flex flex-col sm:flex-row gap-3 items-center justify-between">
+        <div class="relative w-full sm:w-80">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute right-3.5 top-3.5"></i>
+          <input type="text" id="searchInput" oninput="renderScripts()" placeholder="ابحث باسم السكربت أو اللعبة..." class="w-full bg-vtxSurface border border-vtxBorder focus:border-vtxPrimary rounded-xl pr-10 pl-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none transition-all">
+        </div>
+        <div class="flex gap-2 w-full sm:w-auto overflow-x-auto pb-1 custom-scroll" id="categoryChips">
+          <button onclick="setCategory('الكل')" class="cat-btn px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-vtxPrimary text-white" data-cat="الكل">الكل</button>
+          <button onclick="setCategory('Blox Fruits')" class="cat-btn px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-vtxSurface text-slate-400 border border-vtxBorder" data-cat="Blox Fruits">Blox Fruits</button>
+          <button onclick="setCategory('Brookhaven')" class="cat-btn px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-vtxSurface text-slate-400 border border-vtxBorder" data-cat="Brookhaven">Brookhaven</button>
+          <button onclick="setCategory('عام')" class="cat-btn px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-vtxSurface text-slate-400 border border-vtxBorder" data-cat="عام">عام</button>
+        </div>
+      </div>
+
+      <!-- Scripts Grid -->
+      <div id="scriptsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- يتم التحميل تلقائياً بواسطة JavaScript -->
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- TAB 2: الأكواد (Codes & Redeem System) -->
+    <!-- ============================================== -->
+    <section id="tab-codes" class="space-y-6 hidden">
+      <div class="max-w-xl mx-auto bg-vtxSurface border border-vtxBorder rounded-2xl p-6 sm:p-8 text-center space-y-5 glow-purple">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-purple-700 to-indigo-600 mx-auto flex items-center justify-center border border-purple-400 shadow-lg shadow-purple-900/40">
+          <i data-lucide="key" class="w-8 h-8 text-white"></i>
+        </div>
+
+        <div>
+          <h2 class="text-xl sm:text-2xl font-black text-white">نظام استلام الأكواد الحصرية</h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">ضع الكود المخصص الذي حصلت عليه من الإدارة واضغط «استلام» ليظهر لك السكربت فوراً</p>
+        </div>
+
+        <div class="space-y-3">
+          <div class="relative">
+            <input type="text" id="redeemInput" placeholder="أدخل الكود هنا (مثال: VTX-VIP)" class="w-full bg-vtxCard border border-vtxBorder focus:border-vtxPrimary rounded-xl px-4 py-3.5 text-center text-base font-bold font-mono tracking-wider text-white uppercase placeholder-slate-500 outline-none transition-all">
+          </div>
+          <div id="redeemError" class="text-xs text-rose-400 hidden font-semibold"></div>
+          <button onclick="redeemCode()" class="w-full bg-vtxPrimary hover:bg-purple-600 text-white font-black py-3.5 rounded-xl shadow-lg shadow-purple-900/50 flex items-center justify-center gap-2 transition-all">
+            <i data-lucide="gift" class="w-5 h-5"></i>
+            <span>استلام</span>
+          </button>
+        </div>
+
+        <!-- Sample code hint -->
+        <div class="pt-2 flex items-center justify-center gap-2 text-xs text-slate-400">
+          <span>جرّب الكود الترحيبي:</span>
+          <button onclick="pasteCode('VTX-VIP')" class="bg-vtxCard border border-vtxBorder text-vtxPrimaryLight px-2.5 py-1 rounded-md font-mono font-bold hover:border-vtxPrimary">VTX-VIP</button>
+        </div>
+      </div>
+
+      <!-- Claimed Result Card -->
+      <div id="claimedResultBox" class="max-w-xl mx-auto bg-emerald-950/40 border-2 border-vtxGreen rounded-2xl p-5 space-y-3 hidden glow-green">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2 text-vtxGreen font-bold text-sm">
+            <i data-lucide="check-circle" class="w-5 h-5"></i>
+            <span>تهانينا! تم استلام السكربت بنجاح</span>
+          </div>
+          <button onclick="closeClaimedBox()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+        </div>
+        <h4 id="claimedTitle" class="text-base font-black text-white"></h4>
+        <div class="bg-black/80 rounded-xl p-3 border border-emerald-900/50 font-mono text-xs text-emerald-400 break-all max-h-36 overflow-y-auto custom-scroll" id="claimedCode"></div>
+        <button id="claimedCopyBtn" class="w-full bg-vtxGreen hover:bg-vtxGreenHover text-white py-2.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all">
+          <i data-lucide="copy" class="w-4 h-4"></i>
+          <span>نسخ السكربت مجدداً</span>
+        </button>
+      </div>
+
+      <!-- Claimed History -->
+      <div class="max-w-2xl mx-auto space-y-3 pt-4">
+        <h3 class="text-sm font-bold text-slate-300 flex items-center gap-2">
+          <i data-lucide="history" class="w-4 h-4 text-vtxPrimary"></i>
+          <span>سجل السكربتات المستلمة</span>
+        </h3>
+        <div id="historyList" class="space-y-2">
+          <!-- السجل المحفوظ -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- TAB 3: الإدارة (Admin Panel) -->
+    <!-- ============================================== -->
+    <section id="tab-admin" class="space-y-6 hidden">
+      <!-- Admin Login Prompt -->
+      <div id="adminLoginBox" class="max-w-md mx-auto bg-vtxSurface border border-vtxBorder rounded-2xl p-6 sm:p-8 text-center space-y-5">
+        <div class="w-14 h-14 rounded-2xl bg-purple-900/50 border border-purple-500 mx-auto flex items-center justify-center text-vtxPrimaryLight">
+          <i data-lucide="lock" class="w-7 h-7"></i>
+        </div>
+        <div>
+          <h2 class="text-xl font-black text-white">تسجيل دخول الإدارة</h2>
+          <p class="text-xs text-slate-400 mt-1">هذا القسم مخصص لإدارة VTX فقط، يرجى كتابة كلمة المرور للمتابعة</p>
+        </div>
+        <div class="space-y-3">
+          <input type="password" id="adminPassword" placeholder="أدخل كلمة المرور..." class="w-full bg-vtxCard border border-vtxBorder focus:border-vtxPrimary rounded-xl px-4 py-3 text-center text-white placeholder-slate-500 outline-none">
+          <div id="adminError" class="text-xs text-rose-400 hidden font-bold"></div>
+          <button onclick="loginAdmin()" class="w-full bg-vtxPrimary hover:bg-purple-600 text-white font-bold py-3 rounded-xl transition-all shadow-md">
+            دخول لوحة التحكم
+          </button>
+        </div>
+      </div>
+
+      <!-- Admin Dashboard -->
+      <div id="adminDashboard" class="space-y-6 hidden">
+        <!-- Sub-navigation -->
+        <div class="flex flex-wrap gap-2 border-b border-vtxBorder pb-4 justify-between items-center">
+          <div class="flex gap-2">
+            <button onclick="setAdminSubTab('create-script')" id="sub-create-script" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-vtxPrimary text-white">إنشاء سكربتات</button>
+            <button onclick="setAdminSubTab('manage-scripts')" id="sub-manage-scripts" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-vtxSurface text-slate-400 border border-vtxBorder">تعديل السكربتات</button>
+            <button onclick="setAdminSubTab('create-code')" id="sub-create-code" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-vtxSurface text-slate-400 border border-vtxBorder">إنشاء أكواد</button>
+            <button onclick="setAdminSubTab('manage-codes')" id="sub-manage-codes" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-vtxSurface text-slate-400 border border-vtxBorder">إدارة الأكواد</button>
+            <button onclick="setAdminSubTab('backup-data')" id="sub-backup-data" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-vtxSurface text-slate-400 border border-vtxBorder">النسخ الاحتياطي</button>
+          </div>
+          <button onclick="logoutAdmin()" class="px-3 py-1.5 rounded-lg text-xs font-bold text-rose-400 border border-rose-900/50 hover:bg-rose-950/40">تسجيل الخروج</button>
+        </div>
+
+        <!-- 1. إنشاء سكربتات -->
+        <div id="pane-create-script" class="max-w-2xl mx-auto bg-vtxSurface border border-vtxBorder rounded-2xl p-6 space-y-4">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <i data-lucide="plus-circle" class="w-5 h-5 text-vtxPrimary"></i>
+            <span>إدراج سكربت جديد في VTX</span>
+          </h3>
+          <div class="space-y-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">اسم السكربت *</label>
+              <input type="text" id="addScriptTitle" placeholder="مثال: Blox Fruits Auto Farm VTX" class="w-full bg-vtxCard border border-vtxBorder rounded-xl px-4 py-2.5 text-sm text-white focus:border-vtxPrimary outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">فئة اللعبة</label>
+              <input type="text" id="addScriptCategory" placeholder="مثال: Blox Fruits أو عام" class="w-full bg-vtxCard border border-vtxBorder rounded-xl px-4 py-2.5 text-sm text-white focus:border-vtxPrimary outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">صورة السكربت (رابط أو اختر جاهز)</label>
+              <input type="text" id="addScriptImage" placeholder="https://..." class="w-full bg-vtxCard border border-vtxBorder rounded-xl px-4 py-2.5 text-sm text-white focus:border-vtxPrimary outline-none mb-2">
+              <div class="flex gap-2 overflow-x-auto pb-1 custom-scroll">
+                <button type="button" onclick="selectPresetImage('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80')" class="text-[10px] bg-vtxCard border border-vtxBorder px-2.5 py-1 rounded text-purple-300 whitespace-nowrap">Cyber Gamer</button>
+                <button type="button" onclick="selectPresetImage('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80')" class="text-[10px] bg-vtxCard border border-vtxBorder px-2.5 py-1 rounded text-purple-300 whitespace-nowrap">Anime Battle</button>
+                <button type="button" onclick="selectPresetImage('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80')" class="text-[10px] bg-vtxCard border border-vtxBorder px-2.5 py-1 rounded text-purple-300 whitespace-nowrap">Speed Neon</button>
+                <button type="button" onclick="selectPresetImage('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=600&q=80')" class="text-[10px] bg-vtxCard border border-vtxBorder px-2.5 py-1 rounded text-purple-300 whitespace-nowrap">City Life</button>
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">كود السكربت *</label>
+              <textarea id="addScriptCode" rows="4" placeholder="loadstring(game:HttpGet('...'))()" class="w-full bg-vtxCard border border-vtxBorder rounded-xl p-3 text-xs font-mono text-emerald-400 focus:border-vtxPrimary outline-none"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">وصف مختصر</label>
+              <input type="text" id="addScriptDesc" placeholder="تجميع تلقائي، طيران، سرعة..." class="w-full bg-vtxCard border border-vtxBorder rounded-xl px-4 py-2.5 text-sm text-white focus:border-vtxPrimary outline-none">
+            </div>
+            <button onclick="submitNewScript()" class="w-full bg-vtxPrimary hover:bg-purple-600 text-white font-bold py-3 rounded-xl transition-all shadow-md">
+              إدراج السكربت
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. تعديل السكربتات -->
+        <div id="pane-manage-scripts" class="space-y-3 hidden">
+          <h3 class="text-sm font-bold text-slate-300">قائمة السكربتات القابلة للتعديل والحذف:</h3>
+          <div id="adminScriptsList" class="space-y-3"></div>
+        </div>
+
+        <!-- 3. إنشاء أكواد -->
+        <div id="pane-create-code" class="max-w-2xl mx-auto bg-vtxSurface border border-vtxBorder rounded-2xl p-6 space-y-4 hidden">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <i data-lucide="key" class="w-5 h-5 text-vtxPrimary"></i>
+            <span>إنشاء كود استلام جديد</span>
+          </h3>
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <label class="text-xs font-bold text-slate-300">الكود *</label>
+                <button type="button" onclick="generateRandomCode()" class="text-[11px] text-vtxPrimaryLight hover:underline font-bold">توليد كود عشوائي</button>
+              </div>
+              <input type="text" id="addCodeKey" placeholder="مثال: VTX-TURBO25" class="w-full bg-vtxCard border border-vtxBorder rounded-xl px-4 py-2.5 text-sm font-mono uppercase text-white focus:border-vtxPrimary outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">اسم أو عنوان السكربت المستلم</label>
+              <input type="text" id="addCodeTitle" placeholder="مثال: سكربت VIP الترحيبي" class="w-full bg-vtxCard border border-vtxBorder rounded-xl px-4 py-2.5 text-sm text-white focus:border-vtxPrimary outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">السكربت الذي يستلمه الشخص *</label>
+              <textarea id="addCodePayload" rows="4" placeholder="loadstring(game:HttpGet('...'))()" class="w-full bg-vtxCard border border-vtxBorder rounded-xl p-3 text-xs font-mono text-emerald-400 focus:border-vtxPrimary outline-none"></textarea>
+            </div>
+            <button onclick="submitNewCode()" class="w-full bg-vtxPrimary hover:bg-purple-
